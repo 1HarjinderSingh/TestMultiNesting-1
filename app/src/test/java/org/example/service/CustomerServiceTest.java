@@ -46,4 +46,73 @@ public class CustomerServiceTest {
         assertNotNull(missing);
         assertEquals("customer payload", missing);
     }
+
+    @Test
+    public void customerSalutation_whenValidInputs_thenReturnsFormattedString() {
+        Address address = new Address("123", "Main St", "New York", "NY", "10001");
+        String result = service.customerSalutation("Alice", address);
+        assertEquals("Hello Alice from the city of New York", result);
+    }
+
+    @Test
+    public void customerSalutation_whenNullCustomerName_thenReturnsGuestMessage() {
+        Address address = new Address("123", "Main St", "New York", "NY", "10001");
+        String result = service.customerSalutation(null, address);
+        assertEquals("Hello Guest from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenEmptyCustomerName_thenReturnsGuestMessage() {
+        Address address = new Address("123", "Main St", "New York", "NY", "10001");
+        String result = service.customerSalutation("", address);
+        assertEquals("Hello Guest from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenWhitespaceOnlyCustomerName_thenReturnsGuestMessage() {
+        Address address = new Address("123", "Main St", "New York", "NY", "10001");
+        String result = service.customerSalutation("   ", address);
+        assertEquals("Hello Guest from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenNullAddress_thenReturnsUnknownCityMessage() {
+        String result = service.customerSalutation("Alice", null);
+        assertEquals("Hello Alice from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenNullCity_thenReturnsUnknownCityMessage() {
+        Address address = new Address("123", "Main St", null, "NY", "10001");
+        String result = service.customerSalutation("Alice", address);
+        assertEquals("Hello Alice from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenEmptyCity_thenReturnsUnknownCityMessage() {
+        Address address = new Address("123", "Main St", "", "NY", "10001");
+        String result = service.customerSalutation("Alice", address);
+        assertEquals("Hello Alice from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenWhitespaceOnlyCity_thenReturnsUnknownCityMessage() {
+        Address address = new Address("123", "Main St", "   ", "NY", "10001");
+        String result = service.customerSalutation("Alice", address);
+        assertEquals("Hello Alice from an unknown city", result);
+    }
+
+    @Test
+    public void customerSalutation_whenCustomerNameHasWhitespace_thenTrimsName() {
+        Address address = new Address("123", "Main St", "Boston", "MA", "02101");
+        String result = service.customerSalutation("  Bob  ", address);
+        assertEquals("Hello Bob from the city of Boston", result);
+    }
+
+    @Test
+    public void customerSalutation_whenCityHasWhitespace_thenTrimsCity() {
+        Address address = new Address("123", "Main St", "  Chicago  ", "IL", "60601");
+        String result = service.customerSalutation("Charlie", address);
+        assertEquals("Hello Charlie from the city of Chicago", result);
+    }
 }
