@@ -35,6 +35,6 @@ public class RegisterCustomerIntegrationTest {
 
         ResponseEntity<String> resp = restTemplate.postForEntity("http://localhost:" + port + "/register", entity, String.class);
         assertEquals(200, resp.getStatusCodeValue());
-        assertEquals("Welcome Alice! Your registration is accepted.", resp.getBody());
+        assertEquals("Hello Alice from the city of Town", resp.getBody());
     }
 }

@@ -26,12 +26,13 @@ public class RegisterCustomerControllerTest {
     public void givenAllowedName_whenRegister_thenReturnsWelcome() throws Exception {
         String json = "{\"firstName\":\"Alice\",\"lastName\":\"Smith\",\"isActive\":true,\"address\":{\"number\":\"123\",\"street\":\"Main St\",\"city\":\"Town\",\"state\":\"ST\",\"zipcode\":\"12345\"}}";
         org.mockito.Mockito.when(customerService.isAllowedFirstName("Alice")).thenReturn(true);
+        org.mockito.Mockito.when(customerService.customerSalutation(org.mockito.Mockito.eq("Alice"), org.mockito.Mockito.any())).thenReturn("Hello Alice from the city of Town");
 
     mockMvc.perform(post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Welcome Alice! Your registration is accepted."));
+                .andExpect(content().string("Hello Alice from the city of Town"));
     }
 
     @Test
