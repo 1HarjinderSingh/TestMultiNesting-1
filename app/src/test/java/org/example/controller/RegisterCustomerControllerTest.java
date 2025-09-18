@@ -26,7 +26,6 @@ public class RegisterCustomerControllerTest {
     @Test
     public void givenAllowedName_whenRegister_thenReturnsWelcome() throws Exception {
         String json = "{\"firstName\":\"Alice\",\"lastName\":\"Smith\",\"isActive\":true,\"address\":{\"number\":\"123\",\"street\":\"Main St\",\"city\":\"Town\",\"state\":\"ST\",\"zipcode\":\"12345\"}}";
-        org.mockito.Mockito.when(customerService.isAllowedFirstName("Alice")).thenReturn(true);
         org.mockito.Mockito.when(customerService.customerSalutation(org.mockito.Mockito.eq("Alice"), org.mockito.Mockito.any())).thenReturn("Hello Alice from the city of Town");
 
     mockMvc.perform(post("/register")
@@ -39,7 +38,6 @@ public class RegisterCustomerControllerTest {
     @Test
     public void givenUnauthorizedName_whenRegister_thenReturnsForbidden() throws Exception {
         String json = "{\"firstName\":\"Mallory\",\"lastName\":\"Brown\",\"isActive\":true,\"address\":{\"number\":\"1\",\"street\":\"Nowhere\",\"city\":\"NoCity\",\"state\":\"NS\",\"zipcode\":\"00000\"}}";
-        org.mockito.Mockito.when(customerService.isAllowedFirstName("Mallory")).thenReturn(false);
 
     mockMvc.perform(post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +87,6 @@ public class RegisterCustomerControllerTest {
     String json = String.format("{\"firstName\":\"%s\",\"lastName\":\"Smith\",\"isActive\":true,\"address\":{\"number\":\"123\",\"street\":\"Main\",\"city\":\"Town\",\"state\":\"ST\",\"zipcode\":\"12345\"}}", longName);
 
         // mock the service to return false (likely not in enum)
-        org.mockito.Mockito.when(customerService.isAllowedFirstName(org.mockito.Mockito.anyString())).thenReturn(false);
 
         mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
