@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.AllowedCustomerName;
+import org.example.dto.Address;
 import org.example.dto.CustomerDTO;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,18 @@ public class CustomerService {
         if (firstName == null) return false;
         return Arrays.stream(AllowedCustomerName.values())
                 .anyMatch(e -> e.name().equalsIgnoreCase(firstName.trim()));
+    }
+
+    /**
+     * Generate a customer salutation message using customer name and city from address.
+     */
+    public String customerSalutation(String customerName, Address address) {
+        if (customerName == null || customerName.trim().isEmpty()) {
+            return "Hello Guest from an unknown city";
+        }
+        if (address == null || address.getCity() == null || address.getCity().trim().isEmpty()) {
+            return String.format("Hello %s from an unknown city", customerName.trim());
+        }
+        return String.format("Hello %s from the city of %s", customerName.trim(), address.getCity().trim());
     }
 }
