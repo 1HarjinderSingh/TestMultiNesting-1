@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller;
 
 import org.example.dto.CustomerDTO;
 import org.example.service.CustomerService;
@@ -13,11 +13,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/register")
-public class RegisterCustomer {
+public class RegisterCustomerController {
 
     private final CustomerService customerService;
 
-    public RegisterCustomer(CustomerService customerService) {
+    public RegisterCustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
