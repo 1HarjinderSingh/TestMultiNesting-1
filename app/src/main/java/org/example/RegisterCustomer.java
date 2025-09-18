@@ -27,7 +27,7 @@ public class RegisterCustomer {
         boolean allowed = customerService.isAllowedFirstName(firstName);
 
         if (allowed) {
-            String message = String.format("Welcome %s! Your registration is accepted.", firstName);
+            String message = customerService.customerSalutation(firstName, customer.getAddress());
             return ResponseEntity.ok(message);
         } else {
             String err = String.format("Error: %s is not authorized to register.", firstName);
