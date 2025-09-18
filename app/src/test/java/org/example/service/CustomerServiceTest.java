@@ -28,17 +28,6 @@ public class CustomerServiceTest {
         assertNull(missing);
     }
 
-    @Test
-    public void isAllowedFirstName_whenAllowed_thenTrue() {
-        assertTrue(service.isAllowedFirstName("Alice"));
-        assertTrue(service.isAllowedFirstName("alice"));
-    }
-
-    @Test
-    public void isAllowedFirstName_whenNotAllowed_thenFalse() {
-        assertFalse(service.isAllowedFirstName("Mallory"));
-        assertFalse(service.isAllowedFirstName(null));
-    }
 
     @Test
     public void validateMandatoryFields_whenNullCustomer_thenReturnCustomerPayload() {

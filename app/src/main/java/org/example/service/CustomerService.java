@@ -1,11 +1,8 @@
 package org.example.service;
 
-import org.example.AllowedCustomerName;
 import org.example.dto.Address;
 import org.example.dto.CustomerDTO;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 public class CustomerService {
@@ -32,14 +29,6 @@ public class CustomerService {
         return missing.length() > 0 ? missing.toString() : null;
     }
 
-    /**
-     * Return true if the given firstName matches an allowed enum value (case-insensitive).
-     */
-    public boolean isAllowedFirstName(String firstName) {
-        if (firstName == null) return false;
-        return Arrays.stream(AllowedCustomerName.values())
-                .anyMatch(e -> e.name().equalsIgnoreCase(firstName.trim()));
-    }
 
     /**
      * Generate a customer salutation message using customer name and city from address.
